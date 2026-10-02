@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feel Good Vibes 💗</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at center, #1a0010 0%, #0d0008 100%);
+      overflow: hidden;
+      font-family: 'Georgia', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      transition: transform 0.1s ease;
+    }
+
+    /* Floating hearts background */
+    .heart-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 1.5rem;
+      animation: floatUp linear forwards;
+      opacity: 0.7;
+      text-shadow: 0 0 8px currentColor;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Main card */
+    .card {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 60px 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 100, 130, 0.2);
+      border-radius: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 80px rgba(255, 50, 100, 0.2);
+      max-width: 520px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pulsing big heart */
+    .big-heart {
+      font-size: 6rem;
+      display: inline-block;
+      animation: pulse 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 80, 120, 0.8));
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.15); }
+    }
+
+    h1 {
+      color: #ff6b8a;
+      font-size: 2.6rem;
+      margin: 20px 0 10px;
+      text-shadow: 0 0 20px rgba(255, 100, 140, 0.6);
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: #ffaac0;
+      font-size: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+
+    .message {
+      color: #ffd6e0;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      font-style: italic;
+      margin-bottom: 35px;
+      border-radius: 16px;
+      padding: 16px 20px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .message.fadeswap {
+      animation: paraSwap 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes paraSwap {
+      0%   { opacity: 0; transform: translateY(20px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .message.paraGlow {
+      animation: paraSwap 0.5s cubic-bezier(0.22,1,0.36,1) both,
+                 paraBoxGlow 1.2s ease 0.1s both;
+    }
+
+    @keyframes paraBoxGlow {
+      0%   { box-shadow: none; background: transparent; }
+      25%  { box-shadow: 0 0 32px rgba(255,80,120,0.55), inset 0 0 18px rgba(255,80,120,0.12);
+             background: rgba(255,100,130,0.09); }
+      60%  { box-shadow: 0 0 14px rgba(255,80,120,0.25); background: rgba(255,100,130,0.04); }
+      100% { box-shadow: none; background: transparent; }
+    }
+
+    /* Quote cycle */
+    @keyframes quoteFade {
+      from { opacity: 0; transform: translateX(-10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .btn {
+      margin-top: 28px;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #ff6b8a, #ff4169);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-family: 'Georgia', serif;
+      cursor: pointer;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(255, 65, 105, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.5s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 6px 28px rgba(255, 65, 105, 0.7);
+    }
+
+    .btn.clicked {
+      animation: btnPop 0.4s ease forwards;
+    }
+
+    @keyframes btnPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.25) rotate(-4deg); }
+      70%  { transform: scale(0.95) rotate(3deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* ── Extra emotional animations ── */
+
+    /* Card stays still */
+    .card.love-pulse { animation: none; }
+
+    /* h1 shimmer on click */
+    .love-shimmer {
+      animation: shimmer 0.8s ease forwards;
+    }
+    @keyframes shimmer {
+      0%   { text-shadow: 0 0 20px rgba(255,100,140,0.6); letter-spacing: 2px; }
+      40%  { text-shadow: 0 0 40px rgba(255,200,220,1), 0 0 80px rgba(255,100,140,0.8); letter-spacing: 6px; }
+      100% { text-shadow: 0 0 20px rgba(255,100,140,0.6); letter-spacing: 2px; }
+    }
+
+    /* Big heart extra burst on click */
+    .big-heart.heartburst {
+      animation: pulse 1.2s ease-in-out infinite, heartBurst 0.5s ease;
+    }
+    @keyframes heartBurst {
+      0%   { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,80,120,0.8)); }
+      40%  { transform: scale(1.5); filter: drop-shadow(0 0 60px rgba(255,80,120,1)); }
+      100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,80,120,0.8)); }
+    }
+
+    /* Love wave overlay */
+    .love-wave {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      background: radial-gradient(ellipse at center, rgba(255,80,120,0.18) 0%, transparent 70%);
+      animation: waveOut 0.9s ease forwards;
+    }
+    @keyframes waveOut {
+      0%   { opacity: 0; transform: scale(0.2); }
+      40%  { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    /* Floating emoji burst from button */
+    .emoburst {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9997;
+      font-size: 1.6rem;
+      animation: emoBurstFly 1s ease forwards;
+    }
+    @keyframes emoBurstFly {
+      0%   { opacity: 1; transform: translate(0,0) scale(1.2); }
+      100% { opacity: 0; transform: var(--edir) scale(0.2); }
+    }
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, #2a0018 0%, #0d0008 100%);
+      animation: introExit 0.7s ease 3.2s forwards;
+    }
+
+    @keyframes introExit {
+      to { opacity: 0; pointer-events: none; }
+    }
+
+    .intro-heart {
+      font-size: 7rem;
+      animation: introBeat 0.6s ease-in-out infinite alternate,
+                 introHeartPop 0.5s ease 0.1s both;
+      filter: drop-shadow(0 0 40px rgba(255, 80, 120, 1));
+    }
+
+    @keyframes introHeartPop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes introBeat {
+      from { transform: scale(1); }
+      to   { transform: scale(1.12); }
+    }
+
+    .intro-title {
+      margin-top: 28px;
+      font-size: 2.4rem;
+      color: #ff6b8a;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255, 100, 140, 0.9);
+      animation: introTextSlide 0.7s ease 0.5s both;
+    }
+
+    .intro-name {
+      margin-top: 10px;
+      font-size: 1.8rem;
+      color: #ffd6e0;
+      letter-spacing: 5px;
+      font-style: italic;
+      text-shadow: 0 0 20px rgba(255, 180, 200, 0.8);
+      animation: introTextSlide 0.7s ease 0.8s both;
+    }
+
+    @keyframes introTextSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro-sub {
+      margin-top: 12px;
+      font-size: 1rem;
+      color: #ffaac0;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: introTextSlide 0.7s ease 1s forwards;
+    }
+
+    /* ripple rings */
+    .ripple {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 100, 140, 0.5);
+      animation: rippleOut 2s ease-out infinite;
+    }
+    .ripple:nth-child(2) { animation-delay: 0.5s; }
+    .ripple:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes rippleOut {
+      0%   { transform: scale(0.5); opacity: 0.8; }
+      100% { transform: scale(6);   opacity: 0; }
+    }
+
+    /* floating burst hearts on intro */
+    .burst {
+      position: absolute;
+      font-size: 1.6rem;
+      animation: burstFly 1.4s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes burstFly {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: var(--dir) scale(0.3); }
+    }
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 14px;
+      z-index: 9998;
+      animation: sparkleAnim 0.8s ease forwards;
+    }
+
+    @keyframes sparkleAnim {
+      0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -120%) scale(0.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor">💗</div>
+
+  <!-- Intro splash -->
+  <div id="intro">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="intro-heart">💗</div>
+    <div class="intro-title">My Princess</div>
+    <div class="intro-name">Mercy Pradeep</div>
+    <div class="intro-sub">love &nbsp;·&nbsp; warmth &nbsp;·&nbsp; joy</div>
+  </div>
+
+  <!-- Floating hearts background -->
+  <div class="heart-bg" id="heartBg"></div>
+
+  <div class="card">
+    <div class="big-heart">❤️</div>
+    <h1>I Love You</h1>
+    <p class="subtitle">For a lifetime baby</p>
+
+    <p class="message" id="paraBox">
+      Love is the softest kind of strength — it shows up in the small moments, in the way someone remembers how you take your coffee, in the warmth of a hand held without words, in the feeling that no matter where life takes you, there is always someone whose heart beats a little faster just because you exist.
+    </p>
+
+    <button class="btn" id="nextBtn" onclick="nextFeeling()">💖 💗 💕</button>
+  </div>
+
+  <script>
+    const paragraphs = [
+      'Love is the softest kind of strength — it shows up in the small moments, in the way someone remembers how you take your coffee, in the warmth of a hand held without words, in the feeling that no matter where life takes you, there is always someone whose heart beats a little faster just because you exist.',
+      'True love is not about being perfect together — it is about choosing each other every single day, through the storms and the stillness, through the laughter and the tears, knowing that the most beautiful home you will ever find is in the arms of the one who truly sees you.',
+      'Love grows quietly in the spaces between words — in a lingering look, a gentle touch on the shoulder, a smile that says everything a thousand sentences could never quite capture. It is the most ordinary miracle, happening in hearts all over the world, every single moment.',
+      'There is a kind of love that does not shout — it hums softly in the background of your life, steady and sure, like a lighthouse that never goes dark. It does not demand to be noticed; it simply stays, and in staying, it becomes the truest thing you have ever known.',
+      'To love someone deeply is to hold their dreams as carefully as your own, to celebrate their light even when you are standing in the shadows, and to believe in who they are still becoming — that is the most generous and breathtaking kind of love there is.',
+    ];
+
+    // Color themes per step: [heart color, quote border, btn gradient, bg glow]
+    const themes = [
+      { heart: '#ff6b8a', border: '#ff6b8a', btn: 'linear-gradient(135deg,#ff6b8a,#ff4169)', glow: 'rgba(255,50,100,0.25)' },
+      { heart: '#a78bfa', border: '#a78bfa', btn: 'linear-gradient(135deg,#a78bfa,#7c3aed)', glow: 'rgba(139,92,246,0.25)' },
+      { heart: '#f472b6', border: '#f472b6', btn: 'linear-gradient(135deg,#f472b6,#ec4899)', glow: 'rgba(244,114,182,0.25)' },
+      { heart: '#fb923c', border: '#fb923c', btn: 'linear-gradient(135deg,#fb923c,#ea580c)', glow: 'rgba(251,146,60,0.25)' },
+      { heart: '#34d399', border: '#34d399', btn: 'linear-gradient(135deg,#34d399,#059669)', glow: 'rgba(52,211,153,0.25)' },
+      { heart: '#60a5fa', border: '#60a5fa', btn: 'linear-gradient(135deg,#60a5fa,#2563eb)', glow: 'rgba(96,165,250,0.25)' },
+      { heart: '#fbbf24', border: '#fbbf24', btn: 'linear-gradient(135deg,#fbbf24,#d97706)', glow: 'rgba(251,191,36,0.25)' },
+      { heart: '#f87171', border: '#f87171', btn: 'linear-gradient(135deg,#f87171,#dc2626)', glow: 'rgba(248,113,113,0.25)' },
+    ];
+
+    // Colored heart symbols (SVG-colored via CSS filter trick using span + color)
+    const heartColors = ['#ff6b8a','#a78bfa','#f472b6','#fb923c','#34d399','#60a5fa','#fbbf24','#f87171'];
+
+    let idx = 0;
+
+    function nextFeeling() {
+      idx = (idx + 1) % paragraphs.length;
+      const theme = themes[idx % themes.length];
+
+      const para  = document.getElementById('paraBox');
+      const btn   = document.getElementById('nextBtn');
+      const h1    = document.querySelector('h1');
+      const bh    = document.querySelector('.big-heart');
+
+      // 1. Love wave — instant
+      const wave = document.createElement('div');
+      wave.className = 'love-wave';
+      document.body.appendChild(wave);
+      setTimeout(() => wave.remove(), 950);
+
+      // 2. Button pop + color — instant
+      btn.style.background = theme.btn;
+      btn.style.boxShadow  = `0 4px 20px ${theme.glow}`;
+      btn.classList.remove('clicked');
+      btn.offsetHeight;
+      btn.classList.add('clicked');
+      setTimeout(() => btn.classList.remove('clicked'), 420);
+
+      // 3. Heart burst — instant
+      bh.classList.remove('heartburst');
+      bh.offsetHeight;
+      bh.classList.add('heartburst');
+      setTimeout(() => bh.classList.remove('heartburst'), 520);
+
+      // 4. Para fades in with glow — slight delay so wave is visible first
+      setTimeout(() => {
+        para.classList.remove('fadeswap', 'paraGlow');
+        para.offsetHeight;
+        para.textContent = paragraphs[idx];
+        para.classList.add('fadeswap', 'paraGlow');
+        setTimeout(() => para.classList.remove('fadeswap', 'paraGlow'), 1300);
+      }, 80);
+
+      // 5. H1 shimmer — after para starts
+      setTimeout(() => {
+        h1.classList.remove('love-shimmer');
+        h1.offsetHeight;
+        h1.classList.add('love-shimmer');
+        setTimeout(() => h1.classList.remove('love-shimmer'), 850);
+      }, 150);
+
+      // 6. Emoji burst from button — staggered start
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      const emos = ['💖','💕','💗','🌸','✨','💓','💞','🌺'];
+      const dirs = [
+        'translate(-160px,-160px)','translate(0,-200px)','translate(160px,-160px)',
+        'translate(200px,-60px)','translate(160px,100px)','translate(0,180px)',
+        'translate(-160px,100px)','translate(-200px,-60px)'
+      ];
+      emos.forEach((e, i) => {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'emoburst';
+          el.textContent = e;
+          el.style.left = cx + 'px';
+          el.style.top  = cy + 'px';
+          el.style.setProperty('--edir', dirs[i]);
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 1050);
+        }, i * 55);
+      });
+    }
+
+    // Intro burst hearts
+    const intro = document.getElementById('intro');
+    const burstDirs = [
+      'translate(-120px,-120px)','translate(0,-160px)','translate(120px,-120px)',
+      'translate(160px,0)','translate(120px,120px)','translate(0,160px)',
+      'translate(-120px,120px)','translate(-160px,0)'
+    ];
+    setTimeout(() => {
+      burstDirs.forEach((dir, i) => {
+        const b = document.createElement('div');
+        b.className = 'burst';
+        b.textContent = ['💖','💕','💗','✨','🌸'][i % 5];
+        b.style.setProperty('--dir', dir);
+        b.style.animationDelay = (i * 0.06) + 's';
+        intro.appendChild(b);
+      });
+    }, 600);
+    setTimeout(() => intro.remove(), 4000);
+
+    // Custom cursor follow
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.getElementById('cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+
+    // Sparkle trail on click
+    document.addEventListener('click', (e) => {
+      const symbols = ['💖', '✨', '💕', '🌸', '💫', '🌺', '⭐'];
+      const el = document.createElement('div');
+      el.className = 'sparkle';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = e.clientX + 'px';
+      el.style.top  = e.clientY + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 800);
+    });
+
+    // Floating hearts with dynamic color
+    const heartBg = document.getElementById('heartBg');
+    // Unicode heart symbol colored via CSS color property
+    const heartShapes = ['♥', '❤', '♡'];
+    let currentHeartColor = '#ff6b8a';
+
+    function spawnHeart() {
+      const h = document.createElement('div');
+      h.className = 'floating-heart';
+      h.textContent = heartShapes[Math.floor(Math.random() * heartShapes.length)];
+      h.style.color = '#ff6b8a';
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.fontSize = (0.8 + Math.random() * 1.8) + 'rem';
+      const duration = 6 + Math.random() * 8;
+      h.style.animationDuration = duration + 's';
+      h.style.animationDelay = '0s';
+      heartBg.appendChild(h);
+      setTimeout(() => h.remove(), (duration + 1) * 1000);
+    }
+
+    for (let i = 0; i < 20; i++) spawnHeart();
+    setInterval(spawnHeart, 700);
+  </script>
+</body>
+</html>
